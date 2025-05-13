@@ -4,7 +4,7 @@ const path = require("path");
 require("dotenv").config();
 
 const DB_NAME = process.env.SQLITE_DB_NAME || "app_apostas.db";
-const dbPath = path.resolve(__dirname, "..", DB_NAME); // Salva o .db na raiz do backend
+const dbPath = process.env.RENDER_DISK_MOUNT_PATH ? path.join(process.env.RENDER_DISK_MOUNT_PATH, DB_NAME) : path.resolve(__dirname, "..", DB_NAME); // Usa o disco do Render se disponível
 
 // Conecta ou cria o banco de dados
 const db = new sqlite3.Database(dbPath, (err) => {
